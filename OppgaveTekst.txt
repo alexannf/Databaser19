@@ -1,0 +1,20 @@
+Treningsdagboken må minimum ha følgende funksjonalitet:
+1. Registrere apparater, øvelser og treningsøkter med tilhørende data.
+2. Få opp informasjon om et antall n sist gjennomførte treningsøkter med notater, der n spesifiseres av brukeren.
+3. For hver enkelt øvelse skal det være mulig å se en resultatlogg i et gitt tidsintervall spesifisert av brukeren.
+4. Lage øvelsegrupper og finne øvelser som er i samme gruppe.
+5. Lage (opprette) treningssteder og "registrere" treningssteder
+
+
+Her skal treningsdagboken implementeres i Java i henhold til datamodellen gitt i innlevering 1. 
+De 5 kravene til funksjonalitet presentert i oppgavebeskrivelsen må være oppfylt. 
+Dette kan enten gjøres ved å lage et grafisk brukergrensesnitt, eller ved et enkelt tekstlig grensesnitt. 
+Husk at hensikten her er å trene på å bruke JDBC (Java Database Connectivity), og ikke selve programmeringen i Java.
+
+
+Dere skal levere følgende innen 21. mars:
+a) Et kjørbart program i form av en JAR-fil.
+b) Kildekoden til programmet i en zip-fil eller lignende.
+c) En tekstlig beskrivelse som dokumenterer applikasjonen, levert som PDF. Dokumentasjonen skal inneholde
+	i) En oversikt over hvilke klasser som finnes i programmet deres og en tilhørende beskrivelse av hvilken oppgave hver klasse løser.
+	ii) En oversikt over hvilke use cases som er løst og hvordan de er realisert i programmet.

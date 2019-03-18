@@ -1,0 +1,26 @@
+package com.company;
+
+public class Main {
+
+    public static void main(String[] args) {
+	// write your code here
+    // enkel test for å sjekke om den abstrakte klassen funker og for å sjekke kobling mot databasen (connect)
+    /*
+    Test test = new Test();
+    test.connect();
+    */
+        TreningsstedCtrl treningssted = new TreningsstedCtrl();
+        // må alltid calle(instansiere) connect før vi kommuniserer med databasen, hvis ikke får vi en nullpointer error
+        treningssted.connect();
+        treningssted.deleteTreningsstederData();
+        treningssted.printTreningssteder();
+        treningssted.leggTilTreningssted(1, "Akershus", "Asker", "Sætre Terrasse 17", "Alexander sin $teke crib");
+        treningssted.leggTilTreningssted(2, "Trøndelag", "Trondheim", "Arkitekt Christies gate 11", "Alexander sin studentcrib");
+        treningssted.printTreningssteder();
+
+
+        System.out.println("You made it to this point against all odds, congrats");
+
+    }
+}
+
