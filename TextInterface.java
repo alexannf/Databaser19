@@ -1,6 +1,5 @@
 package com.company;
 import java.util.Scanner;
-import TreningsstedCtrl;
 
 public class TextInterface {
 
@@ -13,24 +12,62 @@ public class TextInterface {
         System.out.println("2. Få opp informasjon om et antall n sist gjennomførte treningsøkter med notater, der n spesifiseres av brukeren.");
         System.out.println("3. For hver enkelt øvelse skal det være mulig å se en resultatlogg i et gitt tidsintervall spesifisert av brukeren.");
         System.out.println("4. Lage øvelsegrupper og finne øvelser som er i samme gruppe.");
-        System.out.println("5. Lage (opprette) treningssteder og registrere treningssteder");
         System.out.println("0. Avslutte programmet");
         int nextPage = input.nextInt();
+        cancel(nextPage);
 
         if (nextPage == 1) {
-            System.out.println("Du valgte: 1");
-        } else if (nextPage == 1) {
+            registrereMeny();
+        } else if (nextPage == 2) {
             System.out.println("Du valgte: 2");
-        } else if (nextPage == 1) {
+        } else if (nextPage == 3) {
             System.out.println("Du valgte: 3");
-        } else if (nextPage == 1) {
+        } else if (nextPage == 4) {
             System.out.println("Du valgte: 4");
 
-        } else if (nextPage == 1) {
+        } else if (nextPage == 5) {
             System.out.println("Du valgte: 5");
 
-        } else if (nextPage == 1) {
-            System.out.println("Du valgte: 0");
+        } else if (nextPage == 0) {
+            System.exit(0);
+
+        }
+
+    }
+
+    public static void cancel(String input) {
+        if (Integer.valueOf(input) == 999) {
+            mainMenu();
+        }
+    }
+
+    public static void cancel(int input) {
+        if (input == 999) {
+            mainMenu();
+        }
+    }
+
+    public static void registrereMeny() {
+        System.out.println("Du er på: Meny");
+        Scanner input = new Scanner(System.in);
+        System.out.println("Skriv inn et tall for å gå videre.");
+        System.out.println("1. Registrere treningsøkt");
+        System.out.println("2. Opprette treningssted");
+        System.out.println("3. Opprette apparat");
+        System.out.println("4. Opprette øvelse");
+        System.out.println("999. Gå til hovedmenyen (Kan skrives til ethvert tidspunkt)");
+
+        int nextPage = input.nextInt();
+        cancel(nextPage);
+
+        if (nextPage == 1) {
+            treningsokt();
+        } else if (nextPage == 2) {
+            oppretteTreningssted();
+        } else if (nextPage == 3) {
+            oppretteApparat();
+        } else if (nextPage == 4) {
+            opppretteOvelse();
 
         }
 
@@ -40,18 +77,23 @@ public class TextInterface {
         System.out.println("Du er på: Opprette Treningssted");
         Scanner input = new Scanner(System.in);
         System.out.println("Skriv inn et tall for å gå videre.");
-        System.out.println("999. Avslutte programmet");
+        System.out.println("999. Gå til hovedmenyen (Kan skrives til ethvert tidspunkt)");
 
-        System.out.println("Skriv inn stedsID for treningsstedet");
+        System.out.println("Skriv inn stedsID for treningsstedet (int)");
         int stedID = input.nextInt(); /* midlertidig */
-        System.out.println("Skriv inn fylket for treningsstedet");
+        cancel(stedID);
+        System.out.println("Skriv inn fylket for treningsstedet (string)");
         String fylke = input.nextLine();
-        System.out.println("Skriv inn kommunen for treningsstedet");
+        cancel(fylke);
+        System.out.println("Skriv inn kommunen for treningsstedet (string)");
         String kommune = input.nextLine();
-        System.out.println("Skriv inn adressen for treningsstedet");
+        cancel(kommune);
+        System.out.println("Skriv inn adressen for treningsstedet (string)");
         String adresse = input.nextLine();
-        System.out.println("Skriv inn et navn/kallenavn for treningsstedet");
+        cancel(adresse);
+        System.out.println("Skriv inn et navn/kallenavn for treningsstedet (string)");
         String navn = input.nextLine();
+        cancel(navn);
 
         TreningsstedCtrl treningssted = new TreningsstedCtrl();
         treningssted.connect();
@@ -61,39 +103,104 @@ public class TextInterface {
     public static void oppretteApparat() {
         System.out.println("Du er på: Legge til Apparat");
         Scanner input = new Scanner(System.in);
-        System.out.println("Skriv inn et tall for å gå videre.");
-        System.out.println("999. Avslutte programmet");
+        System.out.println("999. Gå til hovedmenyen (Kan skrives til ethvert tidspunkt)");
 
         System.out.println("Skriv inn et navn for apparatet");
         String navn = input.nextLine();
+        cancel(navn);
         System.out.println("Skriv inn en beskrivelse for apparatet");
         String beskrivelse = input.nextLine();
+        cancel(beskrivelse);
 
         ApparatCtrl apparat = new ApparatCtrl();
         apparat.connect();
-        apparat.leggTilTreningssted(navn, beskrivelse);
+        apparat.leggTilApparat(navn, beskrivelse);
     }
 
     public static void treningsokt() {
         System.out.println("Du er på: Legge til Treningssøkt");
         Scanner input = new Scanner(System.in);
         System.out.println("Skriv inn et tall for å gå videre.");
-        System.out.println("999. Avslutte programmet");
+        System.out.println("999. Gå til hovedmenyen (Kan skrives til ethvert tidspunkt)");
 
         System.out.println("Skriv inn varigheten for treningsøkten");
-        String varighet = input.nextLine();
+        int varighet = input.nextInt();
+        cancel(varighet);
         System.out.println("Skriv inn informasjon om øvelser");
         String infoOvelser = input.nextLine();
+        cancel(infoOvelser);
         System.out.println("Skriv inn form");
-        String form = input.nextLine();
+        int form = input.nextInt();
+        cancel(form);
         System.out.println("Skriv inn prestasjon");
-        String prestasjon = input.nextLine();
+        int prestasjon = input.nextInt();
+        cancel(prestasjon);
+
         System.out.println("Skriv inn stedID");
-        String stedID = input.nextLine();
+        TreningsstedCtrl treningssted = new TreningsstedCtrl();
+        treningssted.printTreningssteder();
+        int stedID = input.nextInt();
+        cancel(stedID);
 
         TreningsoktCtrl treningsokt = new TreningsoktCtrl();
         treningsokt.connect();
-        treningsokt.leggTilTreningssted(varighet, infoOvelser, form, prestasjon, stedID);
+        treningsokt.leggTilTreningsokt(varighet, infoOvelser, form, prestasjon, stedID);
+    }
+
+    public static void opppretteOvelse() {
+        System.out.println("Du er på: Opprette Treningssted");
+        Scanner input = new Scanner(System.in);
+        System.out.println("Skriv inn et tall for å gå videre.");
+        System.out.println("1. Apparat Øvelse");
+        System.out.println("2. Ikke-apparat Øvelse");
+        System.out.println("999. Gå til hovedmenyen (Kan skrives til ethvert tidspunkt)");
+
+        int nextPage = input.nextInt();
+        cancel(nextPage);
+        if (nextPage == 1) {
+            oppretteApparatOvelse();
+        } else if (nextPage == 2) {
+            oppretteIkkeApparatOvelse();
+        }
+    }
+
+    public static void oppretteApparatOvelse() {
+        System.out.println("Du er på: Opprette Treningssted");
+        Scanner input = new Scanner(System.in);
+        System.out.println("Skriv inn et tall for å gå videre.");
+        System.out.println("999. Gå til hovedmenyen (Kan skrives til ethvert tidspunkt)");
+
+        System.out.println("Skriv inn navn for apparat øvelsen");
+        String ovelsesnavn = input.nextLine();
+        cancel(ovelsesnavn);
+        System.out.println("Skriv inn antall kilo for apparat øvelsen");
+        int antall_kilo = input.nextInt();
+        cancel(antall_kilo);
+        System.out.println("Skriv inn antall sett for apparat øvelsen");
+        int antall_sett = input.nextInt();
+        cancel(antall_sett);
+
+        ApparatOvelseCtrl apparatOvelse = new ApparatOvelseCtrl();
+        apparatOvelse.connect();
+        apparatOvelse.leggTilApparatOvelse(ovelsesnavn, antall_kilo, antall_sett);
+    }
+
+    public static void oppretteIkkeApparatOvelse() {
+        System.out.println("Du er på: Opprette Treningssted");
+        Scanner input = new Scanner(System.in);
+        System.out.println("Skriv inn et tall for å gå videre.");
+        System.out.println("999. Gå til hovedmenyen (Kan skrives til ethvert tidspunkt)");
+
+        System.out.println("Skriv inn navn for ikke-apparat øvelsen");
+        String ovelsesnavn = input.nextLine();
+        cancel(ovelsesnavn);
+        System.out.println("Skriv inn beskrivelse for ikke-apparat øvelsen");
+        String beskrivelse = input.nextLine();
+        cancel(beskrivelse);
+
+        IkkeApparatOvelseCtrl ikkeApparatOvelse = new IkkeApparatOvelseCtrl();
+        ikkeApparatOvelse.connect();
+        ikkeApparatOvelse.leggTilIkkeApparatOvelse(ovelsesnavn, beskrivelse);
     }
 
     public static void main(String[] args) {
