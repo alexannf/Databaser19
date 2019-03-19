@@ -56,7 +56,44 @@ public class TextInterface {
         TreningsstedCtrl treningssted = new TreningsstedCtrl();
         treningssted.connect();
         treningssted.leggTilTreningssted(stedID, fylke, kommune, adresse, navn);
+    }
 
+    public static void oppretteApparat() {
+        System.out.println("Du er på: Legge til Apparat");
+        Scanner input = new Scanner(System.in);
+        System.out.println("Skriv inn et tall for å gå videre.");
+        System.out.println("999. Avslutte programmet");
+
+        System.out.println("Skriv inn et navn for apparatet");
+        String navn = input.nextLine();
+        System.out.println("Skriv inn en beskrivelse for apparatet");
+        String beskrivelse = input.nextLine();
+
+        ApparatCtrl apparat = new ApparatCtrl();
+        apparat.connect();
+        apparat.leggTilTreningssted(navn, beskrivelse);
+    }
+
+    public static void treningsokt() {
+        System.out.println("Du er på: Legge til Treningssøkt");
+        Scanner input = new Scanner(System.in);
+        System.out.println("Skriv inn et tall for å gå videre.");
+        System.out.println("999. Avslutte programmet");
+
+        System.out.println("Skriv inn varigheten for treningsøkten");
+        String varighet = input.nextLine();
+        System.out.println("Skriv inn informasjon om øvelser");
+        String infoOvelser = input.nextLine();
+        System.out.println("Skriv inn form");
+        String form = input.nextLine();
+        System.out.println("Skriv inn prestasjon");
+        String prestasjon = input.nextLine();
+        System.out.println("Skriv inn stedID");
+        String stedID = input.nextLine();
+
+        TreningsoktCtrl treningsokt = new TreningsoktCtrl();
+        treningsokt.connect();
+        treningsokt.leggTilTreningssted(varighet, infoOvelser, form, prestasjon, stedID);
     }
 
     public static void main(String[] args) {
