@@ -8,13 +8,13 @@ public abstract class ConnectDB {
 	protected Connection conn;
 	
 	// testet, funker kun med riktig scheme
-	protected String scheme = "prosjektdb";  // configurer s� det passer for deg
+	protected String scheme = "prosjektdb";  // configurer så det passer for deg
 	
 	// testet, funker kun med riktig brukernavn
-	protected String username = "root";  // configurer s� det passer for deg
+	protected String username = "root";  // configurer så det passer for deg
 	
 	// testet, funker kun med riktig passord
-	protected String password = "Gruppe185";  // configurer s� det passer for deg
+	protected String password = "Gruppe185";  // configurer så det passer for deg
 	public ConnectDB() {
 		
 	}

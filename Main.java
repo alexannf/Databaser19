@@ -10,13 +10,19 @@ public class Main {
     test.connect();
     */
         TreningsstedCtrl treningssted = new TreningsstedCtrl();
+        ApparatOvelseCtrl apparatovelse = new ApparatOvelseCtrl();
+        apparatovelse.connect();
+        apparatovelse.deleteApparatOvelserData();
+        apparatovelse.leggTilApparatOvelse("benkpress",5,5);
         // må alltid calle(instansiere) connect før vi kommuniserer med databasen, hvis ikke får vi en nullpointer error
+        /*
         treningssted.connect();
         treningssted.deleteTreningsstederData();
         treningssted.printTreningssteder();
         treningssted.leggTilTreningssted(1, "Akershus", "Asker", "Sætre Terrasse 17", "Alexander sin $teke crib");
         treningssted.leggTilTreningssted(2, "Trøndelag", "Trondheim", "Arkitekt Christies gate 11", "Alexander sin studentcrib");
         treningssted.printTreningssteder();
+        */
 
 
         System.out.println("You made it to this point against all odds, congrats");
