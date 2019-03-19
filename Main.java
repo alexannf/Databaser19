@@ -14,7 +14,7 @@ public class Main {
         apparatovelse.deleteApparatOvelserData();
         apparatovelse.leggTilApparatOvelse("benkpress",5,5);
         // må alltid calle(instansiere) connect før vi kommuniserer med databasen, hvis ikke får vi en nullpointer error
-        */
+
         TreningsstedCtrl treningssted = new TreningsstedCtrl();
         treningssted.connect();
         treningssted.deleteTreningsstederData();
@@ -22,18 +22,24 @@ public class Main {
         treningssted.leggTilTreningssted(1, "Akershus", "Asker", "Sætre Terrasse 17", "Alexander sin $teke crib");
         treningssted.leggTilTreningssted(2, "Trøndelag", "Trondheim", "Arkitekt Christies gate 11", "Alexander sin studentcrib");
         treningssted.printTreningssteder();
-        /*
+
         //funker å legge til i databasen
         IkkeApparatOvelseCtrl iao = new IkkeApparatOvelseCtrl();
         iao.connect();
         iao.deleteIkkeApparatOvelserData();
         iao.leggTilIkkeApparatOvelse("push ups", "stå i planke, senk deg ned til gulvet, dytt opp");
-        */
+
 
         TreningsoktCtrl toc = new TreningsoktCtrl();
         toc.connect();
         toc.deleteTreningsokterData();
+        //datetime blir lagt til automatisk
         toc.leggTilTreningsokt(50, "overkropp økt, maks intesitet daaa", 10, 10, 1);
+        */
+
+        OvelsegruppeCtrl ogc = new OvelsegruppeCtrl();
+        ogc.connect();
+        ogc.seOvelserIGruppe("beinovelser");
 
 
         System.out.println("You made it to this point against all odds, congrats");
