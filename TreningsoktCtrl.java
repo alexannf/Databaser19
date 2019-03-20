@@ -1,6 +1,8 @@
 package com.company;
 
+import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 public class TreningsoktCtrl extends ConnectDB{
 
@@ -42,6 +44,32 @@ public class TreningsoktCtrl extends ConnectDB{
 
         } catch (Exception e) {
             System.out.println("db error during deletion of treningssted data = " + e);
+        }
+    }
+
+    public void printAntallTreningsokter(int antall) {
+        try {
+            Statement stmt = conn.createStatement();
+            String query = "select * from treningsokt";
+            System.out.println("følgende spørring ble utført: "+query);
+            System.out.println();
+            // må bruke executeQuery for spørringer, de returnerer et ResultSet (en slags liste vi kan iterere over))
+            ResultSet rs = stmt.executeQuery(query);
+            ArrayList<String> treningsokter = new ArrayList<String>();
+            System.out.println("Følgende treninsøkter er lagt til:");
+            System.out.println("| Varighet | InfoOmOvelser | Form | Prestasjon | StedID |");
+            while(rs.next()) {
+                treningsokter.add("| "+rs.getString("Varighet")+" | "+rs.getString("InfoOmOvelser")+" | "+rs.getString("Form")+" | "
+                        +rs.getString("Prestasjon")+" | "+rs.getString("StedID") + " |");
+            }
+
+            for (int i = treningsokter.size()-1; i >= treningsokter.size()-1-antall; i--) {
+                System.out.println(treningsokter.get(i));
+            }
+
+
+        } catch (Exception e) {
+            System.out.println("db error during selection of treningsøkt = " + e);
         }
     }
 }

@@ -3,7 +3,6 @@ import java.util.Scanner;
 
 public class TextInterface {
 
-
     public static void mainMenu() {
         System.out.println("Du er på: Hjem");
         Scanner input = new Scanner(System.in);
@@ -12,6 +11,7 @@ public class TextInterface {
         System.out.println("2. Få opp informasjon om et antall n sist gjennomførte treningsøkter med notater, der n spesifiseres av brukeren.");
         System.out.println("3. For hver enkelt øvelse skal det være mulig å se en resultatlogg i et gitt tidsintervall spesifisert av brukeren.");
         System.out.println("4. Lage øvelsegrupper og finne øvelser som er i samme gruppe.");
+        System.out.println("9. Slette alt fra databasen");
         System.out.println("0. Avslutte programmet");
         int nextPage = input.nextInt();
         cancel(nextPage);
@@ -19,18 +19,17 @@ public class TextInterface {
         if (nextPage == 1) {
             registrereMeny();
         } else if (nextPage == 2) {
-            System.out.println("Du valgte: 2");
+            visAntallTreningsokter();
         } else if (nextPage == 3) {
             System.out.println("Du valgte: 3");
         } else if (nextPage == 4) {
             System.out.println("Du valgte: 4");
-
         } else if (nextPage == 5) {
             System.out.println("Du valgte: 5");
-
+        } else if (nextPage == 9) {
+            clear_database();
         } else if (nextPage == 0) {
             System.exit(0);
-
         }
 
     }
@@ -50,6 +49,28 @@ public class TextInterface {
         if (input == 999) {
             mainMenu();
         }
+    }
+
+    public static void clear_database() {
+        TreningsoktCtrl treningsokt = new TreningsoktCtrl();
+        treningsokt.connect();
+        treningsokt.deleteTreningsokterData();
+
+        TreningsstedCtrl treningssted = new TreningsstedCtrl();
+        treningssted.connect();
+        treningssted.deleteTreningsstederData();
+
+        ApparatCtrl apparat = new ApparatCtrl();
+        apparat.connect();
+        apparat.deleteApparaterData();
+
+        ApparatOvelseCtrl apparatOvelse = new ApparatOvelseCtrl();
+        apparatOvelse.connect();
+        apparatOvelse.deleteApparatOvelserData();
+
+        IkkeApparatOvelseCtrl ikkeApparatOvelse = new IkkeApparatOvelseCtrl();
+        ikkeApparatOvelse.connect();
+        ikkeApparatOvelse.deleteIkkeApparatOvelserData();
     }
 
     public static void registrereMeny() {
@@ -73,9 +94,21 @@ public class TextInterface {
             oppretteApparat();
         } else if (nextPage == 4) {
             opppretteOvelse();
-
         }
 
+    }
+
+    public static void visAntallTreningsokter() {
+        System.out.println("Du er på: Visning av treningsøkter");
+        Scanner input = new Scanner(System.in);
+        System.out.println("Skriv inn antall treningsøkter du vil se. (999 for å gå til hovedmenyen)");
+        int antall = input.nextInt();
+        cancel(antall);
+
+        TreningsoktCtrl treningsokt = new TreningsoktCtrl();
+        treningsokt.connect();
+
+        treningsokt.printAntallTreningsokter(antall);
     }
 
     public static void oppretteTreningssted() {
@@ -86,6 +119,7 @@ public class TextInterface {
 
         System.out.println("Skriv inn stedsID for treningsstedet (int)");
         int stedID = input.nextInt(); /* midlertidig */
+        input.nextLine();
         cancel(stedID);
         System.out.println("Skriv inn fylket for treningsstedet (string)");
         String fylke = input.nextLine();
@@ -130,27 +164,33 @@ public class TextInterface {
 
         System.out.println("Skriv inn varigheten for treningsøkten");
         int varighet = input.nextInt();
+        input.nextLine();
         cancel(varighet);
         System.out.println("Skriv inn informasjon om øvelser");
         String infoOvelser = input.nextLine();
         cancel(infoOvelser);
-        System.out.println("Skriv inn form");
+        System.out.println("Skriv inn form (1-10)");
         int form = input.nextInt();
+        input.nextLine();
         cancel(form);
-        System.out.println("Skriv inn prestasjon");
+        System.out.println("Skriv inn prestasjon (1-10)");
         int prestasjon = input.nextInt();
+        input.nextLine();
         cancel(prestasjon);
 
         System.out.println("Skriv inn stedID");
         TreningsstedCtrl treningssted = new TreningsstedCtrl();
+        treningssted.connect();
         treningssted.printTreningssteder();
         int stedID = input.nextInt();
+        input.nextLine();
         cancel(stedID);
 
         TreningsoktCtrl treningsokt = new TreningsoktCtrl();
         treningsokt.connect();
         treningsokt.leggTilTreningsokt(varighet, infoOvelser, form, prestasjon, stedID);
     }
+
 
     public static void opppretteOvelse() {
         System.out.println("Du er på: Opprette Treningssted");
@@ -180,9 +220,11 @@ public class TextInterface {
         cancel(ovelsesnavn);
         System.out.println("Skriv inn antall kilo for apparat øvelsen");
         int antall_kilo = input.nextInt();
+        input.nextLine();
         cancel(antall_kilo);
         System.out.println("Skriv inn antall sett for apparat øvelsen");
         int antall_sett = input.nextInt();
+        input.nextLine();
         cancel(antall_sett);
 
         ApparatOvelseCtrl apparatOvelse = new ApparatOvelseCtrl();
