@@ -36,9 +36,14 @@ public class TextInterface {
     }
 
     public static void cancel(String input) {
-        if (Integer.valueOf(input) == 999) {
-            mainMenu();
+        try {
+            if (Integer.valueOf(input) == 999) {
+                mainMenu();
+            }
+        } catch (NumberFormatException e) {
+
         }
+
     }
 
     public static void cancel(int input) {
