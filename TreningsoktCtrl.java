@@ -78,6 +78,7 @@ public class TreningsoktCtrl extends ConnectDB{
     public void printAntallTreningsokterMedNotater(int antall) {
         try {
             Statement stmt = conn.createStatement();
+            // mulig du må skrive en custom select statement for å ikke få med treningsoktID 2 ganger
             String query = "select * from treningsokt inner join notat on (treningsokt.treningsoktID = notat.treningsoktID) order by TreningsoktID desc;";
             System.out.println("følgende spørring ble utført: "+query);
             System.out.println();
