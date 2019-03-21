@@ -21,11 +21,9 @@ public class TextInterface {
         } else if (nextPage == 2) {
             visAntallTreningsokter();
         } else if (nextPage == 3) {
-            System.out.println("Du valgte: 3");
+            ovelseITidsintervall();
         } else if (nextPage == 4) {
             ovelsesgruppeMeny();
-        } else if (nextPage == 5) {
-            System.out.println("Du valgte: 5");
         } else if (nextPage == 9) {
             clear_database();
         } else if (nextPage == 0) {
@@ -42,14 +40,17 @@ public class TextInterface {
 
         System.out.println("Tid fra. (YYYY-MM-DD HH:MM:SS)");
         String tidFra = input.nextLine();
-
+        cancel(tidFra);
 
         System.out.println("Tid til (YYYY-MM-DD HH:MM:SS)");
         String tidTil = input.nextLine();
+        cancel(tidTil);
 
         System.out.println("Velg ovelse");
         String ovelse = input.nextLine();
+        cancel(ovelse);
 
+        treningsokt.printResultatLogg(tidFra, tidTil, ovelse);
     }
 
     public static void cancel(String input) {
