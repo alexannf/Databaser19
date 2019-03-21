@@ -34,6 +34,24 @@ public class TextInterface {
 
     }
 
+    public static void ovelseITidsintervall() {
+        System.out.println("Du er på: Se øvelser i tidsintervall");
+        Scanner input = new Scanner(System.in);
+        TreningsoktCtrl treningsokt = new TreningsoktCtrl();
+        treningsokt.connect();
+
+        System.out.println("Tid fra. (YYYY-MM-DD HH:MM:SS)");
+        String tidFra = input.nextLine();
+
+
+        System.out.println("Tid til (YYYY-MM-DD HH:MM:SS)");
+        String tidTil = input.nextLine();
+
+        System.out.println("Velg ovelse");
+        String ovelse = input.nextLine();
+
+    }
+
     public static void cancel(String input) {
         try {
             if (Integer.valueOf(input) == 999) {
@@ -190,6 +208,8 @@ public class TextInterface {
         treningsokt.connect();
         treningsokt.leggTilTreningsokt(varighet, infoOvelser, form, prestasjon, stedID);
     }
+
+
 
 
     public static void opppretteOvelse() {
