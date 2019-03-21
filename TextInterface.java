@@ -214,12 +214,15 @@ public class TextInterface {
     }
 
     public static void utvidTreningsokt() {
+        RelasjonsdatabaserCtrl rdbctrl = new RelasjonsdatabaserCtrl();
+        rdbctrl.connect();
         Scanner input = new Scanner(System.in);
         System.out.println("Vil du legge til et notat til treningøkten? 1=Ja, 2=Nei");
         int lagNotat = input.nextInt();
         input.nextLine();
         if (lagNotat ==  1) {
             String notat = input.nextLine();
+            //lag noe i RelasjonsdatabaserCtrl
             /* Legg inn funksjonalitet for å koble notat til treningsøkt */
         }
         System.out.println("Vil du legge inn øvelser utført på treningsøkten? 1=Ja, 2=Nei");
@@ -230,9 +233,11 @@ public class TextInterface {
             int nextPage = input.nextInt();
             input.nextLine();
             if (nextPage == 1) {
-                /* legg inn funksjonalitet for å kobel apparatøvelse og treningsokt sammen */
+                //trenger riktige inn-parametere
+                rdbctrl.leggTilTreningsoktApparatOvelseRelasjon();
             } else if (nextPage == 2) {
-                /* legg inn funksjonalitet for å kobel ikke-apparatøvelse og treningsokt sammen */
+                //trenger riktige inn-parametere
+                rdbctrl.leggTilTreningsoktIkkeApparatOvelserRelasjon();
             }
 
             System.out.println("Vil du legge inn flere øvelser utført på treningsøkten? 1=Ja, 2=Nei");
