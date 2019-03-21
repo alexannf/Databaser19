@@ -119,16 +119,16 @@ public class TextInterface {
     }
 
     public static void visAntallTreningsokter() {
-        System.out.println("Du er på: Visning av treningsøkter");
+        System.out.println("Du er på: Visning av siste treningsøkter med notater");
         Scanner input = new Scanner(System.in);
-        System.out.println("Skriv inn antall treningsøkter du vil se. (999 for å gå til hovedmenyen)");
+        System.out.println("Skriv inn antall siste treningsøkter du vil se som har notater. (999 for å gå til hovedmenyen)");
         int antall = input.nextInt();
         cancel(antall);
 
         TreningsoktCtrl treningsokt = new TreningsoktCtrl();
         treningsokt.connect();
 
-        treningsokt.printAntallTreningsokter(antall);
+        treningsokt.printAntallTreningsokterMedNotater(antall);
     }
 
     public static void oppretteTreningssted() {
@@ -208,13 +208,14 @@ public class TextInterface {
 
         TreningsoktCtrl treningsokt = new TreningsoktCtrl();
         treningsokt.connect();
-        treningsokt.leggTilTreningsokt(varighet, infoOvelser, form, prestasjon, stedID);
-        /* endre leggTilTreningsokt slik at den returnerer primary key (dato og kl.slett) */
+        String datetime = treningsokt.leggTilTreningsokt(varighet, infoOvelser, form, prestasjon, stedID);
 
+        cancel(datetime);
+        utvidTreningsokt(datetime);
 
     }
 
-    public static void utvidTreningsokt() {
+    public static void utvidTreningsokt(String datetime) {
         RelasjonsdatabaserCtrl rdbctrl = new RelasjonsdatabaserCtrl();
         rdbctrl.connect();
         Scanner input = new Scanner(System.in);
@@ -222,9 +223,11 @@ public class TextInterface {
         int lagNotat = input.nextInt();
         input.nextLine();
         if (lagNotat ==  1) {
+            System.out.println("Noter");
             String notat = input.nextLine();
-            //lag noe i RelasjonsdatabaserCtrl
-            /* Legg inn funksjonalitet for å koble notat til treningsøkt */
+            NotatCtrl notatis = new NotatCtrl();
+            notatis.connect();
+            notatis.leggTilNotat(datetime , notat);
         }
         System.out.println("Vil du legge inn øvelser utført på treningsøkten? 1=Ja, 2=Nei");
         int kobleOvelseTilTreningsokt = input.nextInt();
@@ -234,11 +237,13 @@ public class TextInterface {
             int nextPage = input.nextInt();
             input.nextLine();
             if (nextPage == 1) {
-                //trenger riktige inn-parametere
-                rdbctrl.leggTilTreningsoktApparatOvelseRelasjon();
+                System.out.println("Skriv øvelsesnavn");
+                String ovelse = input.nextLine();
+                rdbctrl.leggTilTreningsoktApparatOvelseRelasjon(datetime ,ovelse);
             } else if (nextPage == 2) {
-                //trenger riktige inn-parametere
-                rdbctrl.leggTilTreningsoktIkkeApparatOvelserRelasjon();
+                System.out.println("Skriv øvelsesnavn");
+                String ovelse = input.nextLine();
+                rdbctrl.leggTilTreningsoktIkkeApparatOvelserRelasjon(datetime, ovelse);
             }
 
             System.out.println("Vil du legge inn flere øvelser utført på treningsøkten? 1=Ja, 2=Nei");

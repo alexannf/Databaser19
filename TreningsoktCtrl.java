@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class TreningsoktCtrl extends ConnectDB{
 
-    public void leggTilTreningsokt(int varighet, String infoOvelser, int form, int prestasjon, int stedID) {
+    public String leggTilTreningsokt(int varighet, String infoOvelser, int form, int prestasjon, int stedID) {
         try {
             //this grabs the current date and time and transforms it into the correct format for datetime in SQL
             java.util.Date dt = new java.util.Date();
@@ -24,10 +24,11 @@ public class TreningsoktCtrl extends ConnectDB{
             System.out.println();
             // må bruke executeUpdate for INSERT, DELETE og UPDATE statements
             stmt.executeUpdate(query);
-
+            return datetime;
 
         } catch (Exception e) {
             System.out.println("db error during insertion of treningssted = " + e);
+            return "999";
         }
     }
 
@@ -79,12 +80,13 @@ public class TreningsoktCtrl extends ConnectDB{
         try {
             Statement stmt = conn.createStatement();
             // mulig du må skrive en custom select statement for å ikke få med treningsoktID 2 ganger
-            String query = "select * from treningsokt inner join notat on (treningsokt.treningsoktID = notat.treningsoktID) order by TreningsoktID desc;";
+            String query = "select * from treningsokt inner join notat on (treningsokt.treningsoktID = notat.treningsoktID) order by treningsokt.TreningsoktID desc;";
             System.out.println("følgende spørring ble utført: "+query);
             System.out.println();
             // må bruke executeQuery for spørringer, de returnerer et ResultSet (en slags liste vi kan iterere over))
             ResultSet rs = stmt.executeQuery(query);
             ArrayList<String> treningsokter = new ArrayList<String>();
+
             System.out.println("Følgende treninsøkter er lagt til:");
             System.out.println("| Varighet | InfoOmOvelser | Form | Prestasjon | StedID |");
             while(rs.next()) {
@@ -97,7 +99,7 @@ public class TreningsoktCtrl extends ConnectDB{
             }
 
             treningsokter.forEach(treningsokt->System.out.println(treningsokt));
-
+            System.out.println(treningsokter.size());
 
         } catch (Exception e) {
             System.out.println("db error during selection of treningsøkt = " + e);
@@ -107,25 +109,25 @@ public class TreningsoktCtrl extends ConnectDB{
     public void printResultatLogg(String tidBunn, String tidTopp, String ovelse){
         try {
             Statement stmt = conn.createStatement();
-            String query = "select treningsokt.TreningsoktID, treningsokt.Form, treningsokt.Prestasjon\n" +
+            String query = "select treningsokt.TreningsoktID, Form, Prestasjon\n" +
                     "from treningsokt inner join treningsoktharapparatovelse on \n" +
                     "(treningsokt.TreningsoktID = treningsoktharapparatovelse.TreningsoktID)\n" +
                     "where treningsoktharapparatovelse.OvelsesNavn = '"+ ovelse + "'\n" +
-                    "and "+ tidBunn +" < treningsokt.TreningsoktID < '"+ tidTopp + "'\n" +
+                    "and '"+ tidBunn +"' < treningsokt.TreningsoktID < '"+ tidTopp + "'\n" +
                     "union\n" +
                     "select treningsokt.TreningsoktID, treningsokt.Form, treningsokt.Prestasjon\n" +
                     "from treningsokt inner join treningsoktharikkeapparatovelse on \n" +
-                    "(treningsokt.TreningsoktID = treningsokthaikkerapparatovelse.TreningsoktID)\n" +
+                    "(treningsokt.TreningsoktID = treningsoktharikkeapparatovelse.TreningsoktID)\n" +
                     "where treningsoktharikkeapparatovelse.OvelsesNavn = '"+ ovelse + "'\n" +
-                    "and "+ tidBunn +" < treningsokt.TreningsoktID < '"+ tidTopp + "'\n";
+                    "and '"+ tidBunn +"' < treningsokt.TreningsoktID < '"+ tidTopp + "'\n";
             System.out.println("følgende spørring ble utført: "+query);
             System.out.println();
             // må bruke executeQuery for spørringer, de returnerer et ResultSet (en slags liste vi kan iterere over))
             ResultSet rs = stmt.executeQuery(query);
             System.out.println("Resultatlogg:");
-            System.out.println("| TreningsID | Form | Prestasjon |");
+            System.out.println("| TreningsoktID | Form | Prestasjon |");
             while(rs.next()) {
-                System.out.println("| "+rs.getString("TreningsID")+" | "+rs.getString("Form")+" |" +rs.getString("Prestasjon")+" |");
+                System.out.println("| "+rs.getString("TreningsoktID")+" | "+rs.getString("Form")+" |" +rs.getString("Prestasjon")+" |");
             }
             System.out.println();
 
@@ -134,4 +136,5 @@ public class TreningsoktCtrl extends ConnectDB{
             System.out.println("db error during selection of treningssted = " + e);
         }
     }
+
 }
