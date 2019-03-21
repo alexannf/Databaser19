@@ -208,6 +208,7 @@ public class TextInterface {
         TreningsoktCtrl treningsokt = new TreningsoktCtrl();
         treningsokt.connect();
         treningsokt.leggTilTreningsokt(varighet, infoOvelser, form, prestasjon, stedID);
+        /* endre leggTilTreningsokt slik at den returnerer primary key (dato og kl.slett) */
 
 
     }
@@ -229,9 +230,9 @@ public class TextInterface {
             int nextPage = input.nextInt();
             input.nextLine();
             if (nextPage == 1) {
-
+                /* legg inn funksjonalitet for å kobel apparatøvelse og treningsokt sammen */
             } else if (nextPage == 2) {
-
+                /* legg inn funksjonalitet for å kobel ikke-apparatøvelse og treningsokt sammen */
             }
 
             System.out.println("Vil du legge inn flere øvelser utført på treningsøkten? 1=Ja, 2=Nei");
