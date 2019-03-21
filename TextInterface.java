@@ -23,7 +23,7 @@ public class TextInterface {
         } else if (nextPage == 3) {
             System.out.println("Du valgte: 3");
         } else if (nextPage == 4) {
-            System.out.println("Du valgte: 4");
+            ovelsesgruppeMeny();
         } else if (nextPage == 5) {
             System.out.println("Du valgte: 5");
         } else if (nextPage == 9) {
@@ -248,6 +248,61 @@ public class TextInterface {
         IkkeApparatOvelseCtrl ikkeApparatOvelse = new IkkeApparatOvelseCtrl();
         ikkeApparatOvelse.connect();
         ikkeApparatOvelse.leggTilIkkeApparatOvelse(ovelsesnavn, beskrivelse);
+    }
+
+    public static void ovelsesgruppeMeny() {
+        System.out.println("Du er på: Hjem");
+        Scanner input = new Scanner(System.in);
+        System.out.println("Skriv inn et tall for å gå videre.");
+        System.out.println("1. Opprette øvelsesgruppe.");
+        System.out.println("2. Legge til apparatøvelse i gruppe.");
+        System.out.println("3. Legge til ikke-apparatøvelse i gruppe.");
+        System.out.println("4. Se øvelser i gruppe");
+        System.out.println("999. Gå til hovedmenyen (Kan skrives til ethvert tidspunkt)");
+        int nextPage = input.nextInt();
+        input.nextLine();
+        cancel(nextPage);
+        OvelsegruppeCtrl ogc = new OvelsegruppeCtrl();
+        ogc.connect();
+
+        if (nextPage == 1) {
+            System.out.println("Du har valgt å lage øvelsegruppe");
+            System.out.println("999. Gå til hovedmenyen (Kan skrives til ethvert tidspunkt)");
+            System.out.println("Skriv inn navnet for øvelsesgruppen");
+            String gruppenavn = input.nextLine();
+            cancel(gruppenavn);
+            ogc.opprettOvelsesgruppe(gruppenavn);
+        } else if (nextPage == 2) {
+            System.out.println("Du har valgt å legge inn apparatøvelse i øvelsegruppe");
+            System.out.println("999. Gå til hovedmenyen (Kan skrives til ethvert tidspunkt)");
+            System.out.println("Skriv inn navnet for øvelsen");
+            String ovelse = input.nextLine();
+            cancel(ovelse);
+            System.out.println("Skriv inn navnet for øvelsesgruppen");
+            String ovelsegruppe = input.nextLine();
+            cancel(ovelsegruppe);
+
+            ogc.leggTilApparatOvelseIGruppe(ovelse, ovelsegruppe);
+            ovelsesgruppeMeny();
+        } else if (nextPage == 3) {
+            System.out.println("Du har valgt å legge inn ikke-apparatøvelse i øvelsegruppe");
+            System.out.println("999. Gå til hovedmenyen (Kan skrives til ethvert tidspunkt)");
+            System.out.println("Skriv inn navnet for øvelsen");
+            String ovelse = input.nextLine();
+            cancel(ovelse);
+            System.out.println("Skriv inn navnet for øvelsesgruppen");
+            String ovelsegruppe = input.nextLine();
+            cancel(ovelsegruppe);
+
+            ogc.leggTilIkkeApparatOvelseIGruppe(ovelse, ovelsegruppe);
+            ovelsesgruppeMeny();
+        } else if (nextPage == 4) {
+            System.out.println("Du har valgt å se øvelser i gruppe");
+            System.out.println("Skriv inn gruppenavn.");
+            String gruppenavn = input.nextLine();
+            cancel(gruppenavn);
+            ogc.seOvelserIGruppe(gruppenavn);
+        }
     }
 
     public static void main(String[] args) {
