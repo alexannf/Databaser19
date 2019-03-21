@@ -4,37 +4,33 @@ import java.util.Scanner;
 public class TextInterface {
 
     public static void mainMenu() {
-        while(true){
-            System.out.println("Du er på: Hjem");
-            Scanner input = new Scanner(System.in);
-            System.out.println("Skriv inn et tall for å gå videre.");
-            System.out.println("1. Registrere apparater, øvelser og treningsøkter med tilhørende data.");
-            System.out.println("2. Få opp informasjon om et antall n sist gjennomførte treningsøkter med notater, der n spesifiseres av brukeren.");
-            System.out.println("3. For hver enkelt øvelse skal det være mulig å se en resultatlogg i et gitt tidsintervall spesifisert av brukeren.");
-            System.out.println("4. Lage øvelsegrupper og finne øvelser som er i samme gruppe.");
-            System.out.println("9. Slette alt fra databasen");
-            System.out.println("0. Avslutte programmet");
-            int nextPage = input.nextInt();
-            cancel(nextPage);
+        System.out.println("Du er på: Hjem");
+        Scanner input = new Scanner(System.in);
+        System.out.println("Skriv inn et tall for å gå videre.");
+        System.out.println("1. Registrere apparater, øvelser, treningsøkter og treningssteder med tilhørende data.");
+        System.out.println("2. Få opp informasjon om et antall n sist gjennomførte treningsøkter med notater, der n spesifiseres av brukeren.");
+        System.out.println("3. For hver enkelt øvelse skal det være mulig å se en resultatlogg i et gitt tidsintervall spesifisert av brukeren.");
+        System.out.println("4. Lage øvelsegrupper og finne øvelser som er i samme gruppe.");
+        System.out.println("9. Slette alt fra databasen");
+        System.out.println("0. Avslutte programmet");
+        int nextPage = input.nextInt();
+        cancel(nextPage);
 
-            if (nextPage == 1) {
-                registrereMeny();
-            } else if (nextPage == 2) {
-                visAntallTreningsokter();
-            } else if (nextPage == 3) {
-                System.out.println("Du valgte: 3");
-            } else if (nextPage == 4) {
-                ovelsesgruppeMeny();
-            } else if (nextPage == 5) {
-                System.out.println("Du valgte: 5");
-            } else if (nextPage == 9) {
-                clear_database();
-            } else if (nextPage == 0) {
-                System.exit(0);
-            }
+        if (nextPage == 1) {
+            registrereMeny();
+        } else if (nextPage == 2) {
+            visAntallTreningsokter();
+        } else if (nextPage == 3) {
+            System.out.println("Du valgte: 3");
+        } else if (nextPage == 4) {
+            ovelsesgruppeMeny();
+        } else if (nextPage == 5) {
+            System.out.println("Du valgte: 5");
+        } else if (nextPage == 9) {
+            clear_database();
+        } else if (nextPage == 0) {
+            System.exit(0);
         }
-
-
 
     }
 
@@ -93,6 +89,7 @@ public class TextInterface {
         IkkeApparatOvelseCtrl ikkeApparatOvelse = new IkkeApparatOvelseCtrl();
         ikkeApparatOvelse.connect();
         ikkeApparatOvelse.deleteIkkeApparatOvelserData();
+
     }
 
     public static void registrereMeny() {
@@ -130,7 +127,7 @@ public class TextInterface {
         TreningsoktCtrl treningsokt = new TreningsoktCtrl();
         treningsokt.connect();
 
-        treningsokt.printAntallTreningsokterMedNotater(antall);
+        treningsokt.printAntallTreningsokter(antall);
     }
 
     public static void oppretteTreningssted() {
@@ -211,8 +208,39 @@ public class TextInterface {
         TreningsoktCtrl treningsokt = new TreningsoktCtrl();
         treningsokt.connect();
         treningsokt.leggTilTreningsokt(varighet, infoOvelser, form, prestasjon, stedID);
+        /* endre leggTilTreningsokt slik at den returnerer primary key (dato og kl.slett) */
+
+
     }
 
+    public static void utvidTreningsokt() {
+        Scanner input = new Scanner(System.in);
+        System.out.println("Vil du legge til et notat til treningøkten? 1=Ja, 2=Nei");
+        int lagNotat = input.nextInt();
+        input.nextLine();
+        if (lagNotat ==  1) {
+            String notat = input.nextLine();
+            /* Legg inn funksjonalitet for å koble notat til treningsøkt */
+        }
+        System.out.println("Vil du legge inn øvelser utført på treningsøkten? 1=Ja, 2=Nei");
+        int kobleOvelseTilTreningsokt = input.nextInt();
+        input.nextLine();
+        while (kobleOvelseTilTreningsokt == 1) {
+            System.out.println("Vil du legge inn apparatøvelse eller ikke-apparatøvelse? 1=Apparat, 2=Ikke-apparat");
+            int nextPage = input.nextInt();
+            input.nextLine();
+            if (nextPage == 1) {
+                /* legg inn funksjonalitet for å kobel apparatøvelse og treningsokt sammen */
+            } else if (nextPage == 2) {
+                /* legg inn funksjonalitet for å kobel ikke-apparatøvelse og treningsokt sammen */
+            }
+
+            System.out.println("Vil du legge inn flere øvelser utført på treningsøkten? 1=Ja, 2=Nei");
+            kobleOvelseTilTreningsokt = input.nextInt();
+            input.nextLine();
+        }
+
+    }
 
 
 
