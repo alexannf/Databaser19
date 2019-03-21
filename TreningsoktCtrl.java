@@ -50,7 +50,7 @@ public class TreningsoktCtrl extends ConnectDB{
     public void printAntallTreningsokter(int antall) {
         try {
             Statement stmt = conn.createStatement();
-            String query = "select * from treningsokt";
+            String query = "select * from treningsokt order by TreningsoktID desc;";
             System.out.println("følgende spørring ble utført: "+query);
             System.out.println();
             // må bruke executeQuery for spørringer, de returnerer et ResultSet (en slags liste vi kan iterere over))
@@ -59,13 +59,15 @@ public class TreningsoktCtrl extends ConnectDB{
             System.out.println("Følgende treninsøkter er lagt til:");
             System.out.println("| Varighet | InfoOmOvelser | Form | Prestasjon | StedID |");
             while(rs.next()) {
+                if (treningsokter.size() == antall) {
+                    break;
+                }
                 treningsokter.add("| "+rs.getString("Varighet")+" | "+rs.getString("InfoOmOvelser")+" | "+rs.getString("Form")+" | "
                         +rs.getString("Prestasjon")+" | "+rs.getString("StedID") + " |");
+
             }
 
-            for (int i = treningsokter.size()-1; i >= treningsokter.size()-1-antall; i--) {
-                System.out.println(treningsokter.get(i));
-            }
+            treningsokter.forEach(treningsokt->System.out.println(treningsokt));
 
 
         } catch (Exception e) {
