@@ -103,4 +103,35 @@ public class TreningsoktCtrl extends ConnectDB{
             System.out.println("db error during selection of treningsøkt = " + e);
         }
     }
+
+    public void printResultatLogg(String tidBunn, String tidTopp, String ovelse){
+        try {
+            Statement stmt = conn.createStatement();
+            String query = "select treningsokt.TreningsoktID, treningsokt.Form, treningsokt.Prestasjon\n" +
+                    "from treningsokt inner join treningsoktharapparatovelse on \n" +
+                    "(treningsokt.TreningsoktID = treningsoktharapparatovelse.TreningsoktID)\n" +
+                    "where treningsoktharapparatovelse.OvelsesNavn = '"+ ovelse + "'\n" +
+                    "and "+ tidBunn +" < treningsokt.TreningsoktID < '"+ tidTopp + "'\n" +
+                    "union\n" +
+                    "select treningsokt.TreningsoktID, treningsokt.Form, treningsokt.Prestasjon\n" +
+                    "from treningsokt inner join treningsoktharikkeapparatovelse on \n" +
+                    "(treningsokt.TreningsoktID = treningsokthaikkerapparatovelse.TreningsoktID)\n" +
+                    "where treningsoktharikkeapparatovelse.OvelsesNavn = '"+ ovelse + "'\n" +
+                    "and "+ tidBunn +" < treningsokt.TreningsoktID < '"+ tidTopp + "'\n";
+            System.out.println("følgende spørring ble utført: "+query);
+            System.out.println();
+            // må bruke executeQuery for spørringer, de returnerer et ResultSet (en slags liste vi kan iterere over))
+            ResultSet rs = stmt.executeQuery(query);
+            System.out.println("Resultatlogg:");
+            System.out.println("| TreningsID | Form | Prestasjon |");
+            while(rs.next()) {
+                System.out.println("| "+rs.getString("TreningsID")+" | "+rs.getString("Form")+" |" +rs.getString("Prestasjon")+" |");
+            }
+            System.out.println();
+
+
+        } catch (Exception e) {
+            System.out.println("db error during selection of treningssted = " + e);
+        }
+    }
 }
