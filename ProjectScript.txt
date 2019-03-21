@@ -71,6 +71,30 @@ create table OvingsGruppeHarApparatOvelse (
 													on update no action
                                                     on delete no action
 );
+
+create table TreningsoktHarApparatOvelse (
+    TreningsoktID datetime,
+    OvelsesNavn varchar (30),
+    constraint TreningsoktHarApparatOvelse_PK primary key (TreningsoktID, OvelsesNavn),
+    constraint TreningsoktHarApparatOvelse_FK1 foreign key (TreningsoktID) references Treningsokt (TreningsoktID)
+                                                    on update no action
+                                                    on delete no action,
+    constraint TrningsoktHarApparatOvelse_FK2 foreign key (OvelsesNavn) references ApparatOvelse (OvelsesNavn)
+                                                    on update no action
+                                                    on delete no action
+);
+
+create table TreningsoktHarIkkeApparatOvelse (
+    TreningsoktID datetime,
+    OvelsesNavn varchar (30),
+    constraint TreningsoktHarIkkeApparatOvelse_PK primary key (TreningsoktID, OvelsesNavn),
+    constraint TreningsoktHarIkkeApparatOvelse_FK1 foreign key (TreningsoktID) references Treningsokt (TreningsoktID)
+                                                    on update no action
+                                                    on delete no action,
+    constraint TrningsoktHarIkkeApparatOvelse_FK2 foreign key (OvelsesNavn) references IkkeApparatOvelse (OvelsesNavn)
+                                                    on update no action
+                                                    on delete no action
+);
     
 create table Apparat (
 	ApparatNavn varchar(30),
